@@ -112,20 +112,34 @@ public abstract class Car implements Movable {
         decrementSpeed(amount);
     }
 
+    /***
+     * Moves the car in the direction by speed
+     */
     public void move(){
         pos = new Vector2(direction.x * currentSpeed + pos.x, direction.y * currentSpeed + pos.x);
     }
 
+    /***
+     * Turns the car to the left by turn angle
+     */
     public void turnLeft(){
         currentAngle += turnAngle;
         direction = CalculateDirection(currentAngle);
     }
 
+    /***
+     * Turns the car to the right by turn angle
+     */
     public void turnRight(){
         currentAngle -= turnAngle;
         direction = CalculateDirection(currentAngle);
     }
 
+    /***
+     * 
+     * @param angle
+     * @return
+     */
     private Vector2 CalculateDirection(double angle){
         double x = Math.cos(angle);
         double y = Math.sin(angle);
