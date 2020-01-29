@@ -3,20 +3,33 @@ import java.awt.*;
 public class Saab95 extends Car {
 
     private boolean turboOn;
-    
+
+    /***
+     * Creates a new Saab95
+     */
     public Saab95(){
         super(2, Color.red, 125, "Saab95");
 	    turboOn = false;
     }
 
+    /***
+     * Turns on the turbo
+     */
     public void setTurboOn(){
 	    turboOn = true;
     }
 
+    /***
+     * Turns off the turbo
+     */
     public void setTurboOff(){
 	    turboOn = false;
     }
 
+    /***
+     * Returns the speed factor of the car
+     * @return speed factor
+     */
     @Override
     public double speedFactor(){
         double turbo = 1;
@@ -24,11 +37,19 @@ public class Saab95 extends Car {
         return getEnginePower() * 0.01 * turbo;
     }
 
+    /***
+     * Increases the current speed by amount
+     * @param amount The amount to increase the current speed by
+     */
     @Override
     public void incrementSpeed(double amount){
         incrementSpeed(getCurrentSpeed() + speedFactor() * amount);
     }
 
+    /***
+     * Decrease the current speed by amount
+     * @param amount The amount to decrease the current speed by
+     */
     @Override
     public void decrementSpeed(double amount){
         super.decrementSpeed(getCurrentSpeed() - speedFactor() * amount);

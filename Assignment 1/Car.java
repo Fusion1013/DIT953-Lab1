@@ -14,6 +14,13 @@ public abstract class Car implements Movable {
     private Vector2 pos;
     private Vector2 direction;
 
+    /***
+     * Creates a new basic car, with no extra specifications
+     * @param nrDoors the number of doors of the car
+     * @param color the color of the car
+     * @param enginePower the cars engine power
+     * @param modelName the model name of the car
+     */
     public Car(int nrDoors, Color color, double enginePower, String modelName){
         this.nrDoors = nrDoors;
         this.color = color;
@@ -136,9 +143,9 @@ public abstract class Car implements Movable {
     }
 
     /***
-     * 
-     * @param angle
-     * @return
+     * Calculates the direction of the car by the given angle
+     * @param angle the angle of which the car is travelling in
+     * @return the direction of which the car is travelling in
      */
     private Vector2 CalculateDirection(double angle){
         double x = Math.cos(angle);
