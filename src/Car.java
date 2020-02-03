@@ -148,4 +148,8 @@ public abstract class Car implements Movable {
     public Vector2 GetDirection(){
         return direction;
     }
+
+    public void SetPosition(Vector2 pos){
+        this.pos = pos;
+    }
 }

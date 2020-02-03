@@ -13,6 +13,13 @@ public class Vector2 {
         this.y = y;
     }
 
+    public static double Distance(Vector2 a, Vector2 b){
+        double dx = a.x - b.x;
+        double dy = a.y - b.y;
+
+        return Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+    }
+
     /***
      * Addition of two vectors
      * @param a Vector2
