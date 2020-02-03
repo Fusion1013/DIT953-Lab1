@@ -31,4 +31,28 @@ public class SubCarTests {
         car.brake(-10);
         assertTrue(speedb == car.getCurrentSpeed());
     }
+
+    // --- Scania Tests --- //
+
+    @Test
+    public void TestBed(){
+        Scania scania = new Scania();
+
+        scania.startEngine();
+        scania.IncreaseAngle(10);
+
+        assertTrue(scania.getAngle() == 0);
+
+        scania = new Scania();
+        scania.IncreaseAngle(10);
+        scania.startEngine();
+
+        assertTrue(scania.getCurrentSpeed() == 0);
+
+        scania = new Scania();
+        scania.DecreaseAngle(10);
+        assertTrue(scania.getAngle() == 0);
+        scania.IncreaseAngle(100);
+        assertTrue(scania.getAngle() == 70);
+    }
 }
