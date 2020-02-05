@@ -30,7 +30,7 @@ public class CarTransport extends Car {
     }
 
     public void LoadCar(Car car){
-        if (Vector2.Distance(car.GetPosition(), this.GetPosition()) <= 3){
+        if (Vector2.Distance(car.GetPosition(), this.GetPosition()) > 3){
             return;
         }
         if (car.getClass() == CarTransport.class){

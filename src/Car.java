@@ -104,7 +104,7 @@ public abstract class Car implements Movable {
      * Decreases the current speed by amount
      * @param amount The amount to decrease the current speed by
      */
-    public void decrementSpeed(double amount){
+    private void decrementSpeed(double amount){
         currentSpeed = Math.min(getCurrentSpeed() - speedFactor() * amount, getEnginePower());
     }
 

@@ -4,6 +4,18 @@ import static org.junit.Assert.assertTrue;
 public class CarTests {
 
     @Test
+    public void TestWorkshop() {
+        Workshop<Volvo240> ws = new Workshop<Volvo240>(10, "Mekonomen");
+
+        Volvo240 v = new Volvo240();
+        ws.LoadCar(v);
+
+        ws.UnloadCar(100);
+
+        Saab95 s = new Saab95();
+    }
+
+    @Test
     public void TestTurn(){
         Volvo240 car = new Volvo240();
 
