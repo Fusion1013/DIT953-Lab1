@@ -14,7 +14,12 @@ public class Vector2 {
         this.x = x;
         this.y = y;
     }
-
+    /***
+     * calculates the distance between two points with pythagoras theorem
+     * @param a the first vector containing a int, x and y position
+     * @param b the second vector containing a int, x and y position
+     * @return return the result of pythagoras theorem of the two vectors
+     */
     public static double Distance(Vector2 a, Vector2 b){
         double dx = a.x - b.x;
         double dy = a.y - b.y;
