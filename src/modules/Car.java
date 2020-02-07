@@ -112,11 +112,19 @@ public abstract class Car extends Transportable implements IMovable {
         parent.decrementSpeed(Math.min(getCurrentSpeed() - speedFactor() * amount, getEnginePower()));
     }
 
+    /***
+     * Makes sure the car doesn't accelerate to fast
+     * @param amount
+     */
     public void gas(double amount){
         if (amount < 0 || amount > 1) return;
         incrementSpeed(amount);
     }
 
+    /***
+     * Makes sure the car doesn't decelerate to fast
+     * @param amount
+     */
     public void brake(double amount){
         if (amount < 0 || amount > 1) return;
         decrementSpeed(amount);
@@ -145,14 +153,26 @@ public abstract class Car extends Transportable implements IMovable {
 
     // ---- Getters/Setters ---- //
 
+    /***
+     * Gets the position of the car
+     * @return
+     */
     public Vector2 GetPosition(){
         return parent.position;
     }
 
+    /***
+     * Gets the direction of the car
+     * @return
+     */
     public Vector2 GetDirection(){
         return parent.direction;
     }
 
+    /***
+     * Sets the position of the car
+     * @param pos
+     */
     public void SetPosition(Vector2 pos){
         parent.position = pos;
     }
