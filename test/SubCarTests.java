@@ -17,23 +17,23 @@ public class SubCarTests {
     }
 
     private void TestGas(Car car){
-        double speedb = car.getCurrentSpeed();
+        double speed = car.getCurrentSpeed();
         car.gas(0.1);
-        assertTrue(speedb < car.getCurrentSpeed() || car.getCurrentSpeed() == car.getEnginePower());
+        assertTrue(speed < car.getCurrentSpeed() || car.getCurrentSpeed() == car.getEnginePower());
 
-        speedb = car.getCurrentSpeed();
+        speed = car.getCurrentSpeed();
         car.gas(-10);
-        assertTrue(speedb == car.getCurrentSpeed());
+        assertTrue(speed == car.getCurrentSpeed());
     }
 
     private void TestBrake(Car car){
-        double speedb = car.getCurrentSpeed();
+        double speed = car.getCurrentSpeed();
         car.brake(0.1);
-        assertTrue(speedb > car.getCurrentSpeed() || car.getCurrentSpeed() == 0);
+        assertTrue(speed > car.getCurrentSpeed() || car.getCurrentSpeed() == 0);
 
-        speedb = car.getCurrentSpeed();
+        speed = car.getCurrentSpeed();
         car.brake(-10);
-        assertTrue(speedb == car.getCurrentSpeed());
+        assertTrue(speed == car.getCurrentSpeed());
     }
 
     // --- modules.Scania Tests --- //
