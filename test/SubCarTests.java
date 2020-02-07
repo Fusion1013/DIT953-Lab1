@@ -1,3 +1,7 @@
+import modules.Car;
+import modules.Saab95;
+import modules.Scania;
+import modules.Volvo240;
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 
@@ -32,7 +36,7 @@ public class SubCarTests {
         assertTrue(speedb == car.getCurrentSpeed());
     }
 
-    // --- Scania Tests --- //
+    // --- modules.Scania Tests --- //
 
     @Test
     public void TestBed(){

@@ -1,12 +1,18 @@
+package modules;
+
+import interfaces.IContainer;
+import parents.Container;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CarTransport extends Car {
+public class CarTransport<T extends Car> extends Car {
 
     private int maxCars;
     private boolean truckbedUp;
-    private List<Car> loadedCars = new ArrayList<Car>();
+
+    private Container<T> parent;
 
     /***
      * Creates a new truck
@@ -18,37 +24,16 @@ public class CarTransport extends Car {
     public CarTransport(int nrDoors, Color color, double enginePower, String modelName) {
         super(nrDoors, color, enginePower, modelName);
         maxCars = 4;
+        parent = new Container(maxCars);
     }
 
     @Override
     public void move(){
         super.move();
 
-        for (Car car : loadedCars) {
+        for (T car : parent.GetStored()) {
             car.SetPosition(GetPosition());
         }
-    }
-
-    public void LoadCar(Car car){
-        if (Vector2.Distance(car.GetPosition(), this.GetPosition()) > 3){
-            return;
-        }
-        if (car.getClass() == CarTransport.class){
-            return;
-        }
-        if (loadedCars.size() < maxCars && !truckbedUp){
-            loadedCars.add(car);
-        }
-    }
-
-    public Car UnloadCar(){
-        if (!truckbedUp){
-            Car removed = loadedCars.remove(loadedCars.size() - 1);
-            removed.SetPosition(Vector2.Add(removed.GetPosition(), Vector2.Scale(GetDirection(), -3)));
-            return removed;
-        }
-
-        return null;
     }
 
     public void ToggleBed(){
@@ -65,5 +50,27 @@ public class CarTransport extends Car {
         if (truckbedUp){
             super.incrementSpeed(amount);
         }
+    }
+
+    public void Load(T car) {
+        if (Vector2.Distance(car.GetPosition(), this.GetPosition()) > 3){
+            return;
+        }
+        if (car.getClass() == CarTransport.class){
+            return;
+        }
+        if (parent.GetStored().size() < maxCars && !truckbedUp){
+            parent.Load(car);
+        }
+    }
+
+    public T Unload() {
+        if (!truckbedUp){
+            T removed = parent.Unload(parent.GetStored().size() - 1);
+            removed.SetPosition(Vector2.Add(removed.GetPosition(), Vector2.Scale(GetDirection(), -3)));
+            return removed;
+        }
+
+        return null;
     }
 }

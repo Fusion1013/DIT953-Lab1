@@ -1,3 +1,5 @@
+package modules;
+
 import java.awt.*;
 
 public class Scania extends Car {

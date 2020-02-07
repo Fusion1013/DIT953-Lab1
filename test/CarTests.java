@@ -1,3 +1,7 @@
+import modules.Saab95;
+import modules.Vector2;
+import modules.Volvo240;
+import modules.Workshop;
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 
@@ -8,9 +12,9 @@ public class CarTests {
         Workshop<Volvo240> ws = new Workshop<Volvo240>(10, "Mekonomen");
 
         Volvo240 v = new Volvo240();
-        ws.LoadCar(v);
+        ws.Load(v);
 
-        ws.UnloadCar(100);
+        ws.Unload(100);
 
         Saab95 s = new Saab95();
     }
