@@ -58,4 +58,7 @@ public class CarFerry<T extends Car> implements IMovable {
     public void decrementSpeed(double amount) {
         parentMovable.decrementSpeed(amount);
     }
+    public double getCurrentSpeed(){
+        return parentMovable.speed;
+    }
 }
