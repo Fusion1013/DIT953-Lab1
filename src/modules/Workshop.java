@@ -2,7 +2,7 @@ package modules;
 
 import interfaces.IContainer;
 import parents.Container;
-public class Workshop<T extends Car> {
+public class Workshop<T extends Car>  {
 
     private Container<T> parent;
     private String name;

@@ -1,31 +1,26 @@
 import modules.*;
+import org.junit.Test;
+import parents.Container;
+
+import static org.junit.Assert.assertTrue;
 
 import java.awt.*;
 
 public class ContainerTests {
+    @Test
     public void TestContainer(){
+
         Volvo240 car = new Volvo240();
+        Container<Car> container = new Container<Car>(10);
 
-        TestFerry(car);
-        TestCarTransport(car);
-        TestWorkshop(car);
-    }
+        // Loading Container
+        container.Load(car);
+        assertTrue(container.GetStored().size() == 1);
 
-    private void TestFerry(Car car){
-        CarFerry ferry = new CarFerry(16);
+        container.Unload(100); // Should give error
 
-        ferry.Load(car);
-    }
-
-    private void TestCarTransport(Car car){
-        CarTransport transport = new CarTransport(2, Color.green, 100, "TestModel");
-
-        transport.Load(car);
-    }
-
-    private void TestWorkshop(Car car){
-        Workshop workshop = new Workshop(10, "Mekonomen");
-
-        workshop.Load(car);
+        // Unloading Container
+        Car car1 = container.Unload(0);
+        assertTrue(car1 == car);
     }
 }
