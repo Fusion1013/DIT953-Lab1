@@ -1,7 +1,4 @@
-import modules.Car;
-import modules.Saab95;
-import modules.Scania;
-import modules.Volvo240;
+import modules.*;
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 
@@ -58,5 +55,16 @@ public class SubCarTests {
         assertTrue(scania.getAngle() == 0);
         scania.IncreaseAngle(100);
         assertTrue(scania.getAngle() == 70);
+    }
+    @Test
+    public void TestWorkshop() {
+        Workshop<Volvo240> ws = new Workshop<Volvo240>(10, "Mekonomen");
+
+        Volvo240 v = new Volvo240();
+        ws.Load(v);
+
+        ws.Unload(100);
+
+        Saab95 s = new Saab95();
     }
 }
