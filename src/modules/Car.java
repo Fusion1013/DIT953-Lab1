@@ -109,7 +109,7 @@ public abstract class Car extends Transportable implements IMovable {
      * @param amount The amount to decrease the current speed by
      */
     public void decrementSpeed(double amount){
-        parent.decrementSpeed(Math.min(getCurrentSpeed() - speedFactor() * amount, getEnginePower()));
+        parent.decrementSpeed(Math.max(getCurrentSpeed() - speedFactor() * amount, 0));
     }
 
     /***
