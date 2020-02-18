@@ -66,7 +66,8 @@ public class CarTransport<T extends Car> extends Car {
     }
 
     /***
-     * Only loads the vehicle if it is within 3 coordinates, is transportable, the capacity is not full and truck ramp is down
+     * Only loads the vehicle if it is within 3 coordinates, is transportable,
+     * the capacity is not full and truck ramp is down
      * @param car
      */
     public void Load(T car) {

@@ -30,6 +30,7 @@ public class MovableTests {
 
         assertTrue(car.GetPosition().x == pos.x + car.getCurrentSpeed());
     }
+    @Test
     public void TestIncrement(){
         CarFerry ferry = new CarFerry(0);
 
@@ -39,10 +40,18 @@ public class MovableTests {
 
         assertTrue(speedafter > speedbefore);
 
+        speedbefore = ferry.getCurrentSpeed();
         ferry.decrementSpeed(1);
         speedafter = ferry.getCurrentSpeed();
 
         assertTrue(speedafter < speedbefore);
+    }
+    @Test
+    public void testdistance(){
+        Vector2 vector1 = new Vector2(2,2);
+        Vector2 vector2 = new Vector2(0,0);
+        assertTrue( vector1.Distance(vector1,vector2) == Math.sqrt(8));
+
     }
 
 }
