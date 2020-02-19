@@ -110,7 +110,7 @@ public abstract class Car extends Transportable implements IMovable {
      * @return speed factor
      */
     public double speedFactor(){
-        return 0.0;
+        return 1.0;
     }
 
     /***
