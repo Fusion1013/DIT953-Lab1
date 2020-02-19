@@ -1,9 +1,14 @@
 package Graphics;
 
 import modules.*;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /*
@@ -25,6 +30,10 @@ public class CarController {
     CarView frame;
     // A list of cars, modify if needed
     ArrayList<Car> cars = new ArrayList<Car>();
+
+    Volvo240 volvo;
+    Saab95 saab;
+    Scania scania;
 
     //methods:
 
@@ -55,6 +64,7 @@ public class CarController {
                 double carWidth = frame.drawPanel.volvoImage.getWidth();
                 double carHeight = frame.drawPanel.volvoImage.getHeight();
 
+                // Collision
                 if ((posX >= frame.getWidth() - carWidth || posX < 0) || (posY >= frame.getHeight() - carHeight || posY < 0)){
                     // Turns 180 degrees
                     car.turnLeft();
@@ -69,7 +79,11 @@ public class CarController {
                 car.move();
                 int x = (int) Math.round(car.GetPosition().x);
                 int y = (int) Math.round(car.GetPosition().y);
-                frame.drawPanel.moveit(x, y);
+
+                if (car.getClass() == Volvo240.class) frame.drawPanel.moveVolvo(x, y);
+                if (car.getClass() == Saab95.class) frame.drawPanel.moveSaab(x, y);
+                if (car.getClass() == Scania.class) frame.drawPanel.moveScania(x, y);
+
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
             }
@@ -79,8 +93,7 @@ public class CarController {
     // Calls the gas method for each car once
     void gas(int amount) {
         double gas = ((double) amount) / 100;
-        for (Car car : cars
-                ) {
+        for (Car car : cars) {
             car.gas(gas);
         }
     }
@@ -88,8 +101,7 @@ public class CarController {
     // Calls the brake method for each car once
     void brake(int amount) {
         double brake = ((double) amount) / 100;
-        for (Car car : cars
-        ) {
+        for (Car car : cars) {
             car.brake(brake);
         }
     }

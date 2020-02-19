@@ -2,9 +2,8 @@ package Graphics;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -12,15 +11,28 @@ import javax.swing.*;
 
 public class DrawPanel extends JPanel{
 
-    // Just a single image, TODO: Generalize
-    public BufferedImage volvoImage;
-    // To keep track of a singel cars position
+    // Images and positions for all cars
     Point volvoPoint = new Point();
+    BufferedImage volvoImage;
+    Point saabPoint = new Point();
+    BufferedImage saabImage;
+    Point scaniaPoint = new Point();
+    BufferedImage scaniaImage;
 
     // TODO: Make this general for all cars
-    void moveit(int x, int y){
+    void moveVolvo(int x, int y){
         volvoPoint.x = x;
         volvoPoint.y = y;
+    }
+
+    void moveSaab(int x, int y){
+        saabPoint.x = x;
+        saabPoint.y = y;
+    }
+
+    void moveScania(int x, int y){
+        scaniaPoint.x = x;
+        scaniaPoint.y = y;
     }
 
     // Initializes the panel and reads the images
@@ -36,12 +48,14 @@ public class DrawPanel extends JPanel{
 
             // Remember to rightclick src New -> Package -> name: Graphics.pics -> MOVE *.jpg to Graphics.pics.
             // if you are starting in IntelliJ.
+
             volvoImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg"));
+            saabImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Saab95.jpg"));
+            scaniaImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Scania.jpg"));
         } catch (IOException ex)
         {
             ex.printStackTrace();
         }
-
     }
 
     // This method is called each time the panel updates/refreshes/repaints itself
@@ -50,5 +64,7 @@ public class DrawPanel extends JPanel{
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(volvoImage, volvoPoint.x, volvoPoint.y, null); // see javadoc for more info on the parameters
+        g.drawImage(saabImage, saabPoint.x, saabPoint.y, null);
+        g.drawImage(scaniaImage, scaniaPoint.x, scaniaPoint.y, null);
     }
 }
