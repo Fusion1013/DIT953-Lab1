@@ -15,6 +15,14 @@ public class Saab95 extends Car {
     }
 
     /***
+     * Creates a new modules.Saab95
+     */
+    public Saab95(Vector2 startPos){
+        super(2, Color.red, 125, "modules.Saab95", startPos);
+        turboOn = false;
+    }
+
+    /***
      * Turns on the turbo
      */
     public void setTurboOn(){

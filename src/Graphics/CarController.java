@@ -1,5 +1,6 @@
 package Graphics;
 
+import modules.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,7 +24,7 @@ public class CarController {
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
     // A list of cars, modify if needed
-    ArrayList<ACar> cars = new ArrayList<ACar>();
+    ArrayList<Car> cars = new ArrayList<Car>();
 
     //methods:
 
@@ -31,7 +32,9 @@ public class CarController {
         // Instance of this class
         CarController cc = new CarController();
 
-        cc.cars.add(new Volvo240());
+        cc.cars.add(new Volvo240(new Vector2(0, 0)));
+        cc.cars.add(new Saab95(new Vector2(0, 100)));
+        cc.cars.add(new Scania(new Vector2(0, 200)));
 
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
@@ -45,10 +48,27 @@ public class CarController {
     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            for (ACar car : cars) {
+            for (Car car : cars) {
+                double posX = car.GetPosition().x;
+                double posY = car.GetPosition().y;
+
+                double carWidth = frame.drawPanel.volvoImage.getWidth();
+                double carHeight = frame.drawPanel.volvoImage.getHeight();
+
+                if ((posX >= frame.getWidth() - carWidth || posX < 0) || (posY >= frame.getHeight() - carHeight || posY < 0)){
+                    // Turns 180 degrees
+                    car.turnLeft();
+                    car.turnLeft();
+
+                    car.move();
+
+                    car.stopEngine();
+                    car.startEngine();
+                }
+
                 car.move();
-                int x = (int) Math.round(car.getPosition().getX());
-                int y = (int) Math.round(car.getPosition().getY());
+                int x = (int) Math.round(car.GetPosition().x);
+                int y = (int) Math.round(car.GetPosition().y);
                 frame.drawPanel.moveit(x, y);
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
@@ -59,9 +79,18 @@ public class CarController {
     // Calls the gas method for each car once
     void gas(int amount) {
         double gas = ((double) amount) / 100;
-        for (ACar car : cars
+        for (Car car : cars
                 ) {
             car.gas(gas);
+        }
+    }
+
+    // Calls the brake method for each car once
+    void brake(int amount) {
+        double brake = ((double) amount) / 100;
+        for (Car car : cars
+        ) {
+            car.brake(brake);
         }
     }
 }

@@ -13,6 +13,13 @@ public class Scania extends Car {
     }
 
     /***
+     * Creates a new scania truck
+     */
+    public Scania(Vector2 startPos) {
+        super(2, Color.green, 20, "ScaniaVabis314", startPos);
+    }
+
+    /***
      * increases the angle of the truckbed by the specified amount
      * @param amount the double amount to increase the truckbed
      */

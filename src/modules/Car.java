@@ -33,6 +33,23 @@ public abstract class Car extends Transportable implements IMovable {
     }
 
     /***
+     * Creates a new basic car, with no extra specifications
+     * @param nrDoors the number of doors of the car
+     * @param color the color of the car
+     * @param enginePower the cars engine power
+     * @param modelName the model name of the car
+     */
+    public Car(int nrDoors, Color color, double enginePower, String modelName, Vector2 startPos){
+        this.nrDoors = nrDoors;
+        this.color = color;
+        this.enginePower = enginePower;
+        this.modelName = modelName;
+        parent.direction = new Vector2(1, 0);
+        parent.position = startPos;
+        stopEngine();
+    }
+
+    /***
      * Returns the number of doors
      * @return number of doors
      */
@@ -101,7 +118,7 @@ public abstract class Car extends Transportable implements IMovable {
      * @param amount The amount to increase the current speed by
      */
     public void incrementSpeed(double amount){
-        parent.incrementSpeed(Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower()));
+        parent.setSpeed(Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower()));
     }
 
     /***
@@ -109,7 +126,7 @@ public abstract class Car extends Transportable implements IMovable {
      * @param amount The amount to decrease the current speed by
      */
     public void decrementSpeed(double amount){
-        parent.decrementSpeed(Math.max(getCurrentSpeed() - speedFactor() * amount, 0));
+        parent.setSpeed(Math.max(getCurrentSpeed() - speedFactor() * amount, 0));
     }
 
     /***

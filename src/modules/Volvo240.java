@@ -14,6 +14,13 @@ public class Volvo240 extends Car {
     }
 
     /***
+     * Creates a new modules.Volvo240
+     */
+    public Volvo240(Vector2 startPos){
+        super(4, Color.black, 100, "modules.Volvo240", startPos);
+    }
+
+    /***
      * Returns the speed factor of the car
      * @return speed factor
      */

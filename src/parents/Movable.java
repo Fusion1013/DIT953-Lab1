@@ -59,4 +59,8 @@ public class Movable implements IMovable {
     public void decrementSpeed(double amount) {
         speed -= amount;
     }
+
+    public void setSpeed(double amount) {
+        speed = amount;
+    }
 }
