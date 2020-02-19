@@ -46,7 +46,7 @@ public class CarController {
         cc.cars.add(new Scania(new Vector2(0, 200)));
 
         // Start a new view and send a reference of self
-        cc.frame = new CarView("CarSim 1.0", cc);
+        cc.frame = new CarView("CarSim 1.01", cc);
 
         // Start the timer
         cc.timer.start();
@@ -103,6 +103,60 @@ public class CarController {
         double brake = ((double) amount) / 100;
         for (Car car : cars) {
             car.brake(brake);
+        }
+    }
+
+    // Calls the startEngine method for each car once
+    void startEngines() {
+        for (Car car : cars){
+            car.startEngine();
+        }
+    }
+
+    // Calls the stopEngine method for each car once
+    void stopEngines() {
+        for (Car car : cars){
+            car.stopEngine();
+        }
+    }
+
+    // Calls the turboOn method for each saab once
+    void turboOn() {
+        for (Car car : cars){
+            if (car.getClass() == Saab95.class){
+                Saab95 saab = (Saab95)car;
+                saab.setTurboOn();
+            }
+        }
+    }
+
+    // Calls the turboOff method for each saab once
+    void turboOff() {
+        for (Car car : cars){
+            if (car.getClass() == Saab95.class){
+                Saab95 saab = (Saab95)car;
+                saab.setTurboOff();
+            }
+        }
+    }
+
+    // Calls the DecreaseAngle method for each scania once
+    void lowerBed() {
+        for (Car car : cars){
+            if (car.getClass() == Scania.class){
+                Scania scania = (Scania)car;
+                scania.DecreaseAngle(70);
+            }
+        }
+    }
+
+    // Calls the IncreaseAngle method for each scania once
+    void liftBed() {
+        for (Car car : cars){
+            if (car.getClass() == Scania.class){
+                Scania scania = (Scania)car;
+                scania.IncreaseAngle(70);
+            }
         }
     }
 }
