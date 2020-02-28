@@ -4,9 +4,13 @@ import interfaces.ControllerListener;
 import interfaces.UpdateListener;
 import modules.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +24,7 @@ public class CarModel implements ActionListener, ControllerListener {
     // member fields:
 
     // A list of cars, modify if needed
-    public ArrayList<Car> cars = new ArrayList<Car>();
+    private ArrayList<Car> cars = new ArrayList<Car>();
 
     // The delay (ms) corresponds to 20 updates a sec (hz)
     private final int delay = 50;
@@ -37,6 +41,39 @@ public class CarModel implements ActionListener, ControllerListener {
         timer.start();
     }
 
+    public void addVolvo(int x, int y){
+        Volvo240 volvo = new Volvo240(new Vector2(x, y));
+        cars.add(volvo);
+        notifyObjectAdded(getImage("Volvo240"), new Point(x, y), volvo.getModelName());
+    }
+    public void addSaab(int x, int y){
+        Saab95 saab = new Saab95(new Vector2(x, y));
+        cars.add(saab);
+        notifyObjectAdded(getImage("Saab95"), new Point(x, y), saab.getModelName());
+    }
+    public void addScania(int x, int y){
+        Scania scania = new Scania(new Vector2(x, y));
+        cars.add(scania);
+        notifyObjectAdded(getImage("Scania"), new Point(x, y), scania.getModelName());
+    }
+
+    private void notifyObjectAdded(BufferedImage image, Point point, String id){
+        for (UpdateListener listener : updateListeners){
+            listener.objectAdded(image, point, id);
+        }
+    }
+
+    private static BufferedImage getImage(String image){
+        try {
+            BufferedImage img = ImageIO.read(DrawView.class.getResourceAsStream("pics/" + image +".jpg"));
+            return img;
+        } catch (IOException ex)
+        {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
     public void addUpdateListener(UpdateListener listener){
         updateListeners.add(listener);
     }
@@ -44,66 +81,20 @@ public class CarModel implements ActionListener, ControllerListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         for (Car car : cars) {
-            double posX = car.GetPosition().x;
-            double posY = car.GetPosition().y;
-
-            // double carWidth = frame.drawPanel.volvoImage.getWidth();
-            // double carHeight = frame.drawPanel.volvoImage.getHeight();
-
-            /*
-            // Collision
-            if ((posX >= frame.getWidth() - carWidth || posX < 0) || (posY >= frame.getHeight() - carHeight || posY < 0)){
-                // Turns 180 degrees
-                car.turnLeft();
-                car.turnLeft();
-
-                car.move();
-
-                car.stopEngine();
-                car.startEngine();
-            }
-
-             */
-
             car.move();
             int x = (int) Math.round(car.GetPosition().x);
             int y = (int) Math.round(car.GetPosition().y);
-/*
-            if (car.getClass() == Volvo240.class) frame.drawPanel.moveVolvo(x, y);
-            if (car.getClass() == Saab95.class) frame.drawPanel.moveSaab(x, y);
-            if (car.getClass() == Scania.class) frame.drawPanel.moveScania(x, y);
 
- */
-
-            // repaint() calls the paintComponent method of the panel
-            // frame.drawPanel.repaint();
-        }
-
-        for (UpdateListener listener : updateListeners){
-            listener.updateView();
-        }
-    }
-
-    @Override
-    public void gas(double amount) {
-        for (Car car : cars){
-            car.gas(amount);
-        }
-    }
-
-    /* Each step the TimerListener moves all the cars in the list and tells the
-     * view to update its images. Change this method to your needs.
-     * */
-    private class TimerListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            System.out.println("ap1");
-            /*
-             */
+            // Updates Listeners
+            for (UpdateListener listener : updateListeners){
+                listener.objectMoved(new Point(x, y), car.getModelName());
+            }
         }
     }
 
     // Calls the gas method for each car once
-    void gas(int amount) {
+    @Override
+    public void gas(int amount) {
         double gas = ((double) amount) / 100;
         for (Car car : cars) {
             car.gas(gas);
@@ -119,7 +110,8 @@ public class CarModel implements ActionListener, ControllerListener {
     }
 
     // Calls the startEngine method for each car once
-    void startEngines() {
+    @Override
+    public void startEngines() {
         for (Car car : cars){
             car.startEngine();
         }

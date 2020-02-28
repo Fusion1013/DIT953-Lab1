@@ -1,5 +1,7 @@
 package interfaces;
 
 public interface ControllerListener {
-    public void gas(double amount);
+    public void startEngines();
+
+    public void gas(int amount);
 }

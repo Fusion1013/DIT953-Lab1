@@ -49,6 +49,10 @@ public abstract class Car extends Transportable implements IMovable {
         stopEngine();
     }
 
+    public String getModelName(){
+        return modelName;
+    }
+
     /***
      * Returns the number of doors
      * @return number of doors

@@ -132,7 +132,9 @@ public class CarController extends JFrame {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // carC.startEngines();
+                for (ControllerListener listener : controllerListeners){
+                    listener.startEngines();
+                }
             }
         });
 

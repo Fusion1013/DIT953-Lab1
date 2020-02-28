@@ -5,6 +5,8 @@ import interfaces.UpdateListener;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -12,8 +14,16 @@ import javax.swing.*;
 
 public class DrawView extends JPanel implements UpdateListener {
 
+    private List<MovableImage> images = new ArrayList<>();
+
     // TODO: Make this general for all cars
-    void moveit(int x, int y){
+    void moveImage(Point newPoint, String imageId){
+        for (MovableImage image : images){
+            if (image.getId().equals(imageId)){
+                image.setPoint(newPoint);
+                return;
+            }
+        }
     }
 
     // Initializes the panel and reads the images
@@ -39,18 +49,29 @@ public class DrawView extends JPanel implements UpdateListener {
         }
     }
 
+    // Adds an image
+    private void addImage(BufferedImage image, Point point, String id){
+        images.add(new MovableImage(image, point, id));
+    }
+
     // This method is called each time the panel updates/refreshes/repaints itself
     // TODO: Change to suit your needs.
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // g.drawImage(volvoImage, volvoPoint.x, volvoPoint.y, null); // see javadoc for more info on the parameters
-        // g.drawImage(saabImage, saabPoint.x, saabPoint.y, null);
-        // g.drawImage(scaniaImage, scaniaPoint.x, scaniaPoint.y, null);
+        for (MovableImage image : images){
+            g.drawImage(image.getImage(), image.getPoint().x, image.getPoint().y, null);
+        }
     }
 
     @Override
-    public void updateView() {
-        System.out.println("ap2");
+    public void objectMoved(Point newPoint, String id) {
+        moveImage(newPoint, id);
+        repaint();
+    }
+
+    @Override
+    public void objectAdded(BufferedImage image, Point point, String id){
+        addImage(image, new Point(point), id);
     }
 }
