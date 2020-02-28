@@ -7,7 +7,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CarTransport<T extends Car> extends Car {
+public class CarTransport<T extends Car> extends Car implements IContainer<T> {
 
     private int maxCars;
     private boolean truckRampUp;
@@ -82,11 +82,15 @@ public class CarTransport<T extends Car> extends Car {
         }
     }
 
+    public T Unload(){
+        return Unload(0);
+    }
+
     /***
      * Unloads the last car 3 coordinates behind the CarTransport
      * @return
      */
-    public T Unload() {
+    public T Unload(int pos) {
         if (!truckRampUp){
             T removed = parent.Unload(parent.GetStored().size() - 1);
             removed.SetPosition(Vector2.Add(removed.GetPosition(), Vector2.Scale(GetDirection(), -3)));

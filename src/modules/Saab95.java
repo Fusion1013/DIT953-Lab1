@@ -27,6 +27,7 @@ public class Saab95 extends Car {
      */
     public void setTurboOn(){
 	    turboOn = true;
+        super.incrementSpeed(0);
     }
 
     /***
@@ -34,6 +35,7 @@ public class Saab95 extends Car {
      */
     public void setTurboOff(){
 	    turboOn = false;
+        super.incrementSpeed(0);
     }
 
     /***
