@@ -99,6 +99,13 @@ public class CarController extends JFrame {
         this.add(controlPanel);
         controlPanel.setBackground(Color.CYAN);
 
+        // COLORS
+        gasButton.setBackground(Color.gray);
+        brakeButton.setBackground(Color.gray);
+        turboOffButton.setBackground(Color.gray);
+        turboOnButton.setBackground(Color.gray);
+        liftBedButton.setBackground(Color.gray);
+        lowerBedButton.setBackground(Color.gray);
 
         startButton.setBackground(Color.blue);
         startButton.setForeground(Color.green);
@@ -125,7 +132,9 @@ public class CarController extends JFrame {
         brakeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // carC.brake(gasAmount);
+                for (ControllerListener listener : controllerListeners){
+                    listener.brake(gasAmount);
+                }
             }
         });
 
@@ -141,35 +150,45 @@ public class CarController extends JFrame {
         stopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // carC.stopEngines();
+                for (ControllerListener listener : controllerListeners){
+                    listener.stopEngines();
+                }
             }
         });
 
         turboOnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // carC.turboOn();
+                for (ControllerListener listener : controllerListeners){
+                    listener.turboOn();
+                }
             }
         });
 
         turboOffButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // carC.turboOff();
+                for (ControllerListener listener : controllerListeners){
+                    listener.turboOff();
+                }
             }
         });
 
         liftBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // carC.lowerBed();
+                for (ControllerListener listener : controllerListeners){
+                    listener.liftBed();
+                }
             }
         });
 
         lowerBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // carC.liftBed();
+                for (ControllerListener listener : controllerListeners){
+                    listener.lowerBed();
+                }
             }
         });
 

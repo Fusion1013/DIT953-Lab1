@@ -102,7 +102,8 @@ public class CarModel implements ActionListener, ControllerListener {
     }
 
     // Calls the brake method for each car once
-    void brake(int amount) {
+    @Override
+    public void brake(int amount) {
         double brake = ((double) amount) / 100;
         for (Car car : cars) {
             car.brake(brake);
@@ -118,14 +119,16 @@ public class CarModel implements ActionListener, ControllerListener {
     }
 
     // Calls the stopEngine method for each car once
-    void stopEngines() {
+    @Override
+    public void stopEngines() {
         for (Car car : cars){
             car.stopEngine();
         }
     }
 
     // Calls the turboOn method for each saab once
-    void turboOn() {
+    @Override
+    public void turboOn() {
         for (Car car : cars){
             if (car.getClass() == Saab95.class){
                 Saab95 saab = (Saab95)car;
@@ -135,7 +138,8 @@ public class CarModel implements ActionListener, ControllerListener {
     }
 
     // Calls the turboOff method for each saab once
-    void turboOff() {
+    @Override
+    public void turboOff() {
         for (Car car : cars){
             if (car.getClass() == Saab95.class){
                 Saab95 saab = (Saab95)car;
@@ -145,7 +149,8 @@ public class CarModel implements ActionListener, ControllerListener {
     }
 
     // Calls the DecreaseAngle method for each scania once
-    void lowerBed() {
+    @Override
+    public void lowerBed() {
         for (Car car : cars){
             if (car.getClass() == Scania.class){
                 Scania scania = (Scania)car;
@@ -155,7 +160,8 @@ public class CarModel implements ActionListener, ControllerListener {
     }
 
     // Calls the IncreaseAngle method for each scania once
-    void liftBed() {
+    @Override
+    public void liftBed() {
         for (Car car : cars){
             if (car.getClass() == Scania.class){
                 Scania scania = (Scania)car;
