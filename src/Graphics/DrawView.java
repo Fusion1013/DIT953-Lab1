@@ -1,42 +1,23 @@
 package Graphics;
 
+import interfaces.UpdateListener;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
 // This panel represent the animated part of the view with the car images.
 
-public class DrawPanel extends JPanel{
-
-    // Images and positions for all cars
-    Point volvoPoint = new Point();
-    BufferedImage volvoImage;
-    Point saabPoint = new Point();
-    BufferedImage saabImage;
-    Point scaniaPoint = new Point();
-    BufferedImage scaniaImage;
+public class DrawView extends JPanel implements UpdateListener {
 
     // TODO: Make this general for all cars
-    void moveVolvo(int x, int y){
-        volvoPoint.x = x;
-        volvoPoint.y = y;
-    }
-
-    void moveSaab(int x, int y){
-        saabPoint.x = x;
-        saabPoint.y = y;
-    }
-
-    void moveScania(int x, int y){
-        scaniaPoint.x = x;
-        scaniaPoint.y = y;
+    void moveit(int x, int y){
     }
 
     // Initializes the panel and reads the images
-    public DrawPanel(int x, int y) {
+    public DrawView(int x, int y) {
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
         this.setBackground(Color.green);
@@ -49,9 +30,9 @@ public class DrawPanel extends JPanel{
             // Remember to rightclick src New -> Package -> name: Graphics.pics -> MOVE *.jpg to Graphics.pics.
             // if you are starting in IntelliJ.
 
-            volvoImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg"));
-            saabImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Saab95.jpg"));
-            scaniaImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Scania.jpg"));
+            // volvoImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg"));
+            // saabImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Saab95.jpg"));
+            BufferedImage scaniaImage = ImageIO.read(DrawView.class.getResourceAsStream("pics/Scania.jpg"));
         } catch (IOException ex)
         {
             ex.printStackTrace();
@@ -63,8 +44,13 @@ public class DrawPanel extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(volvoImage, volvoPoint.x, volvoPoint.y, null); // see javadoc for more info on the parameters
-        g.drawImage(saabImage, saabPoint.x, saabPoint.y, null);
-        g.drawImage(scaniaImage, scaniaPoint.x, scaniaPoint.y, null);
+        // g.drawImage(volvoImage, volvoPoint.x, volvoPoint.y, null); // see javadoc for more info on the parameters
+        // g.drawImage(saabImage, saabPoint.x, saabPoint.y, null);
+        // g.drawImage(scaniaImage, scaniaPoint.x, scaniaPoint.y, null);
+    }
+
+    @Override
+    public void updateView() {
+        System.out.println("ap2");
     }
 }
