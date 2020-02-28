@@ -3,6 +3,11 @@ import Graphics.CarController;
 import Graphics.DrawView;
 import modules.*;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
 public class Application {
 
     private static final int X = 800;
@@ -17,9 +22,9 @@ public class Application {
         cc.addUpdateListener(view);
         controller.addControllerListener(cc);
 
-        cc.cars.add(new Volvo240(new Vector2(0, 0)));
-        cc.cars.add(new Saab95(new Vector2(0, 100)));
-        cc.cars.add(new Scania(new Vector2(0, 200)));
+        cc.addVolvo(0, 0);
+        cc.addSaab(0, 100);
+        cc.addScania(0, 200);
 
         // Start a new view and send a reference of self
     }
