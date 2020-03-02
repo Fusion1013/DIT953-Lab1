@@ -16,4 +16,10 @@ public interface ControllerListener {
     public void liftBed();
 
     public void lowerBed();
+
+    public void addVolvo(int x, int y);
+
+    public void addSaab(int x, int y);
+
+    public void addScania(int x, int y);
 }

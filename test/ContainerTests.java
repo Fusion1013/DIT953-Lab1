@@ -1,10 +1,9 @@
-import modules.*;
+import modules.car.Car;
+import modules.car.Volvo240;
 import org.junit.Test;
 import parents.Container;
 
 import static org.junit.Assert.assertTrue;
-
-import java.awt.*;
 
 public class ContainerTests {
     @Test

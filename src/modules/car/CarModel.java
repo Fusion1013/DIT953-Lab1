@@ -1,8 +1,9 @@
-package Graphics;
+package modules.car;
 
 import interfaces.ControllerListener;
 import interfaces.UpdateListener;
-import modules.*;
+import Graphics.DrawView;
+import modules.Vector2;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -41,20 +42,21 @@ public class CarModel implements ActionListener, ControllerListener {
         timer.start();
     }
 
+    // TODO: Unique ID's
     public void addVolvo(int x, int y){
         Volvo240 volvo = new Volvo240(new Vector2(x, y));
         cars.add(volvo);
-        notifyObjectAdded(getImage("Volvo240"), new Point(x, y), volvo.getModelName());
+        notifyObjectAdded(getImage("Volvo240"), new Point(x, y), volvo.getModelName() + volvo.toString());
     }
     public void addSaab(int x, int y){
         Saab95 saab = new Saab95(new Vector2(x, y));
         cars.add(saab);
-        notifyObjectAdded(getImage("Saab95"), new Point(x, y), saab.getModelName());
+        notifyObjectAdded(getImage("Saab95"), new Point(x, y), saab.getModelName() + saab.toString());
     }
     public void addScania(int x, int y){
         Scania scania = new Scania(new Vector2(x, y));
         cars.add(scania);
-        notifyObjectAdded(getImage("Scania"), new Point(x, y), scania.getModelName());
+        notifyObjectAdded(getImage("Scania"), new Point(x, y), scania.getModelName() + scania.toString());
     }
 
     private void notifyObjectAdded(BufferedImage image, Point point, String id){
@@ -87,7 +89,7 @@ public class CarModel implements ActionListener, ControllerListener {
 
             // Updates Listeners
             for (UpdateListener listener : updateListeners){
-                listener.objectMoved(new Point(x, y), car.getModelName());
+                listener.objectMoved(new Point(x, y), car.getModelName() + car.toString());
             }
         }
     }

@@ -1,6 +1,7 @@
-package modules;
+package modules.car;
 
 import interfaces.IMovable;
+import modules.Vector2;
 import parents.Movable;
 import parents.Transportable;
 

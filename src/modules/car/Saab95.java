@@ -1,4 +1,6 @@
-package modules;
+package modules.car;
+
+import modules.Vector2;
 
 import java.awt.*;
 
@@ -7,18 +9,18 @@ public class Saab95 extends Car {
     private boolean turboOn;
 
     /***
-     * Creates a new modules.Saab95
+     * Creates a new modules.car.Saab95
      */
     public Saab95(){
-        super(2, Color.red, 125, "modules.Saab95");
+        super(2, Color.red, 125, "modules.car.Saab95");
 	    turboOn = false;
     }
 
     /***
-     * Creates a new modules.Saab95
+     * Creates a new modules.car.Saab95
      */
     public Saab95(Vector2 startPos){
-        super(2, Color.red, 125, "modules.Saab95", startPos);
+        super(2, Color.red, 125, "modules.car.Saab95", startPos);
         turboOn = false;
     }
 

@@ -1,7 +1,7 @@
-package Graphics;
+package modules;
 
 import interfaces.ControllerListener;
-import interfaces.UpdateListener;
+import Graphics.DrawView;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
