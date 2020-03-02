@@ -1,17 +1,20 @@
 package modules.car;
 
 import interfaces.IContainer;
+import interfaces.ITruckbed;
 import modules.Vector2;
 import parents.Container;
+import parents.TruckBed;
 
 import java.awt.*;
 
-public class CarTransport<T extends Car> extends Car implements IContainer<T> {
+public class CarTransport<T extends Car> extends Car implements IContainer<T>, ITruckbed {
 
     private int maxCars;
-    private boolean truckRampUp;
+    private double truckRampUp;
 
-    private Container<T> parent;
+    private Container<T> containerParent;
+    private TruckBed truckBedParent;
 
     /***
      * Creates a new truck
@@ -23,7 +26,7 @@ public class CarTransport<T extends Car> extends Car implements IContainer<T> {
     public CarTransport(int nrDoors, Color color, double enginePower, String modelName) {
         super(nrDoors, color, enginePower, modelName);
         maxCars = 4;
-        parent = new Container(maxCars);
+        containerParent = new Container(maxCars);
     }
 
     /***
@@ -33,16 +36,31 @@ public class CarTransport<T extends Car> extends Car implements IContainer<T> {
     public void move(){
         super.move();
 
-        for (T car : parent.GetStored()) {
+        for (T car : containerParent.GetStored()) {
             car.SetPosition(GetPosition());
         }
     }
 
     /***
-     * Raises and lowers the ramp only when the speed is 0
+     * increases the angle of the truckbed by the specified amount
+     * @param amount the double amount to increase the truckbed
      */
-    public void ToggleRamp(){
-        if (getCurrentSpeed() == 0) truckRampUp = !truckRampUp;
+    @Override
+    public void IncreaseAngle(double amount) {
+        if (getCurrentSpeed() == 0) {
+            truckBedParent.IncreaseAngle(amount);
+        }
+    }
+    /***
+     * decreases the angle of the truckbed by the specified amount
+     * @param amount the double amount to decrease the truckbed
+     */
+
+    @Override
+    public void DecreaseAngle(double amount) {
+        if (getCurrentSpeed() != 0) {
+            truckBedParent.DecreaseAngle(amount);
+        }
     }
 
     /***
@@ -50,7 +68,7 @@ public class CarTransport<T extends Car> extends Car implements IContainer<T> {
      */
     @Override
     public void startEngine(){
-        if (truckRampUp) super.startEngine();
+        if (truckRampUp == 0) super.startEngine();
     }
 
     /***
@@ -59,7 +77,7 @@ public class CarTransport<T extends Car> extends Car implements IContainer<T> {
      */
     @Override
     public void incrementSpeed(double amount){
-        if (truckRampUp){
+        if (truckRampUp == 0){
             super.incrementSpeed(amount);
         }
     }
@@ -76,8 +94,8 @@ public class CarTransport<T extends Car> extends Car implements IContainer<T> {
         if (car.getClass() == CarTransport.class){
             return;
         }
-        if (parent.GetStored().size() < maxCars && !truckRampUp){
-            parent.Load(car);
+        if (containerParent.GetStored().size() < maxCars && truckRampUp != 0){
+            containerParent.Load(car);
         }
     }
 
@@ -90,8 +108,8 @@ public class CarTransport<T extends Car> extends Car implements IContainer<T> {
      * @return
      */
     public T Unload(int pos) {
-        if (!truckRampUp){
-            T removed = parent.Unload(parent.GetStored().size() - 1);
+        if (truckRampUp != 0){
+            T removed = containerParent.Unload(containerParent.GetStored().size() - 1);
             removed.SetPosition(Vector2.Add(removed.GetPosition(), Vector2.Scale(GetDirection(), -3)));
             return removed;
         }

@@ -34,21 +34,11 @@ public class Scania extends Car {
      * @param amount the double amount to decrease the truckbed
      */
 
-    public void DecreaseAngle(double amount){
-        truckbedAngle -= amount;
-        NormalizeAngle();
-    }
-
-    /***
-     * a sanity check designed to prevent the trucks truckbed to not reach absurd angles
-     * keeping it between 0 and 70
-     * also if an angle would try be changed while driving the angle will not change
-     */
-    private void NormalizeAngle(){
-        truckbedAngle = Math.min(truckbedAngle, 70);
-        truckbedAngle = Math.max(truckbedAngle, 0);
-
-        if (getCurrentSpeed() != 0) truckbedAngle = 0;
+    @Override
+    public void DecreaseAngle(double amount) {
+        if (getCurrentSpeed() != 0) {
+            truckBedParent.DecreaseAngle(amount);
+        }
     }
 
     /***
