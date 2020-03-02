@@ -22,4 +22,6 @@ public interface ControllerListener {
     public void addSaab(int x, int y);
 
     public void addScania(int x, int y);
+
+    public void removeCar(int pos);
 }

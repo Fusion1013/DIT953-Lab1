@@ -7,4 +7,6 @@ public interface UpdateListener {
     public void objectMoved(Point newPoint, String id);
 
     public void objectAdded(BufferedImage image, Point point, String id);
+
+    public void objectRemoved(String id);
 }

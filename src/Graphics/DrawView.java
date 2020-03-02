@@ -16,7 +16,6 @@ public class DrawView extends JPanel implements UpdateListener {
 
     private List<MovableImage> images = new ArrayList<>();
 
-    // TODO: Make this general for all cars
     void moveImage(Point newPoint, String imageId){
         for (MovableImage image : images){
             if (image.getId().equals(imageId)){
@@ -38,8 +37,17 @@ public class DrawView extends JPanel implements UpdateListener {
         images.add(new MovableImage(image, point, id));
     }
 
+    private void removeImage(String id){
+        for (int i = 0; i < images.size(); i++){
+            if (images.get(i).getId().equals(id)){
+                images.remove(i);
+                repaint();
+                return;
+            }
+        }
+    }
+
     // This method is called each time the panel updates/refreshes/repaints itself
-    // TODO: Change to suit your needs.
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -57,5 +65,10 @@ public class DrawView extends JPanel implements UpdateListener {
     @Override
     public void objectAdded(BufferedImage image, Point point, String id){
         addImage(image, new Point(point), id);
+    }
+
+    @Override
+    public void objectRemoved(String id){
+        removeImage(id);
     }
 }
