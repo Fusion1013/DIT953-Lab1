@@ -1,12 +1,7 @@
-import Graphics.CarModel;
-import Graphics.CarController;
+import modules.CarEditorController;
+import modules.car.CarModel;
+import modules.CarController;
 import Graphics.DrawView;
-import modules.*;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class Application {
 
@@ -15,17 +10,16 @@ public class Application {
 
     public static void main(String[] args) {
         DrawView view = new DrawView(X, Y-240);
-
         CarController controller = new CarController("CarSim 1.01", view, X, Y);
-        CarModel cc = new CarModel();
+        CarEditorController editorController = new CarEditorController("Car Editor");
+        CarModel model = new CarModel(X, Y);
 
-        cc.addUpdateListener(view);
-        controller.addControllerListener(cc);
+        model.addUpdateListener(view);
+        controller.addControllerListener(model);
+        editorController.addControllerListener(model);
 
-        cc.addVolvo(0, 0);
-        cc.addSaab(0, 100);
-        cc.addScania(0, 200);
-
-        // Start a new view and send a reference of self
+        model.addVolvo(0, 0);
+        model.addSaab(0, 100);
+        model.addScania(0, 200);
     }
 }

@@ -1,6 +1,6 @@
-import modules.CarFerry;
+import modules.car.CarFerry;
 import modules.Vector2;
-import modules.Volvo240;
+import modules.car.Volvo240;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;

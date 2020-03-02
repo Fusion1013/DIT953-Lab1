@@ -1,11 +1,10 @@
-package modules;
+package modules.car;
 
 import interfaces.IContainer;
+import modules.Vector2;
 import parents.Container;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CarTransport<T extends Car> extends Car implements IContainer<T> {
 

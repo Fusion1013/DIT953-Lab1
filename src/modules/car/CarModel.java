@@ -1,8 +1,9 @@
-package Graphics;
+package modules.car;
 
 import interfaces.ControllerListener;
 import interfaces.UpdateListener;
-import modules.*;
+import Graphics.DrawView;
+import modules.Vector2;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -12,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 import java.util.List;
 
 /*
@@ -21,9 +23,12 @@ import java.util.List;
  */
 
 public class CarModel implements ActionListener, ControllerListener {
-    // member fields:
 
-    // A list of cars, modify if needed
+    // World Size
+    private int width = 0;
+    private int height = 0;
+
+    // A list of cars
     private ArrayList<Car> cars = new ArrayList<Car>();
 
     // The delay (ms) corresponds to 20 updates a sec (hz)
@@ -37,24 +42,32 @@ public class CarModel implements ActionListener, ControllerListener {
 
     //methods:
 
-    public CarModel(){
+    public CarModel(int width, int height){
         timer.start();
+        this.width = width - getImage("Volvo240").getWidth();
+        this.height = height - getImage("Volvo240").getHeight();
     }
 
     public void addVolvo(int x, int y){
+        if (cars.size() >= 10) throw new StackOverflowError();
+
         Volvo240 volvo = new Volvo240(new Vector2(x, y));
         cars.add(volvo);
-        notifyObjectAdded(getImage("Volvo240"), new Point(x, y), volvo.getModelName());
+        notifyObjectAdded(getImage("Volvo240"), new Point(x, y), volvo.getModelName() + volvo.toString());
     }
     public void addSaab(int x, int y){
+        if (cars.size() >= 10) throw new StackOverflowError();
+
         Saab95 saab = new Saab95(new Vector2(x, y));
         cars.add(saab);
-        notifyObjectAdded(getImage("Saab95"), new Point(x, y), saab.getModelName());
+        notifyObjectAdded(getImage("Saab95"), new Point(x, y), saab.getModelName() + saab.toString());
     }
     public void addScania(int x, int y){
+        if (cars.size() >= 10) throw new StackOverflowError();
+
         Scania scania = new Scania(new Vector2(x, y));
         cars.add(scania);
-        notifyObjectAdded(getImage("Scania"), new Point(x, y), scania.getModelName());
+        notifyObjectAdded(getImage("Scania"), new Point(x, y), scania.getModelName() + scania.toString());
     }
 
     private void notifyObjectAdded(BufferedImage image, Point point, String id){
@@ -81,13 +94,25 @@ public class CarModel implements ActionListener, ControllerListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         for (Car car : cars) {
+            // Collision
+            int xPos = (int)Math.round(car.GetPosition().x);
+            int yPos = (int)Math.round(car.GetPosition().y);
+
+            if (xPos > width || xPos < 0 || yPos > height || yPos < 0){
+                car.turnLeft();
+                car.turnLeft();
+                car.move();
+                car.stopEngine();
+                car.startEngine();
+            }
+
             car.move();
             int x = (int) Math.round(car.GetPosition().x);
             int y = (int) Math.round(car.GetPosition().y);
 
             // Updates Listeners
             for (UpdateListener listener : updateListeners){
-                listener.objectMoved(new Point(x, y), car.getModelName());
+                listener.objectMoved(new Point(x, y), car.getModelName() + car.toString());
             }
         }
     }
@@ -167,6 +192,21 @@ public class CarModel implements ActionListener, ControllerListener {
                 Scania scania = (Scania)car;
                 scania.IncreaseAngle(70);
             }
+        }
+    }
+
+    @Override
+    public void removeCar(int pos){
+        if (cars.size() != 0){
+            String id = cars.get(pos).getModelName() + cars.get(pos).toString();
+            for (UpdateListener listener : updateListeners){
+                listener.objectRemoved(id);
+            }
+
+            cars.remove(pos);
+        }
+        else{
+            throw new EmptyStackException();
         }
     }
 }

@@ -1,4 +1,4 @@
-import modules.*;
+import modules.car.*;
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 
@@ -33,7 +33,7 @@ public class SubCarTests {
         assertTrue(speed == car.getCurrentSpeed());
     }
 
-    // --- modules.Scania Tests --- //
+    // --- modules.car.Scania Tests --- //
 
     @Test
     public void TestBed(){

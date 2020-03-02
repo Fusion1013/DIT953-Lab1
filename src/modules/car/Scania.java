@@ -1,4 +1,6 @@
-package modules;
+package modules.car;
+
+import modules.Vector2;
 
 import java.awt.*;
 
@@ -77,7 +79,6 @@ public class Scania extends Car {
     public void incrementSpeed(double amount){
         if (truckbedAngle == 0){
             super.incrementSpeed(amount);
-            System.out.println(getCurrentSpeed());
         }
     }
 }
